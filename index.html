@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Consultas</title>
+<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <h1>Registro de Consultas</h1>
+
+  <form>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" required>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" required>
+
+    <label for="hora">Hora:</label>
+    <select id="hora" required>
+      <option value="">Seleccione una hora</option>
+      <option value="9:00">9:00 AM</option>
+      <option value="10:00">10:00 AM</option>
+      <option value="11:00">11:00 AM</option>
+      <option value="12:00">12:00 PM</option>
+      <option value="13:00">1:00 PM</option>
+      <option value="14:00">2:00 PM</option>
+      <option value="15:00">3:00 PM</option>
+      <option value="16:00">4:00 PM</option>
+      <option value="17:00">5:00 PM</option>
+    </select>
+
+    <button type="button" onclick="registrarConsulta()">Registrar</button>
+  </form>
+
+  <h2>Horarios Disponibles</h2>
+  <table id="horarios">
+    <tr>
+      <th>Hora</th>
+      <th>Estado</th>
+    </tr>
+    <tr>
+      <td>9:00 AM</td>
+      <td id="hora_9_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>10:00 AM</td>
+      <td id="hora_10_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>11:00 AM</td>
+      <td id="hora_11_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>12:00 PM</td>
+      <td id="hora_12_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>1:00 PM</td>
+      <td id="hora_13_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>2:00 PM</td>
+      <td id="hora_14_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>3:00 PM</td>
+      <td id="hora_15_00">Disponible</td>
+    </tr>
+    <tr>
+      <td>4:00 PM</td>
+      <td id="hora_16_00">Disponible</td>
+    </tr>
+    <tr>
+        <td>5:00 PM</td>
+        <td id="hora_17_00">Disponible</td>
+      </tr>
+    </table>
+  
+    <script>
+      function registrarConsulta() {
+        let nombre = document.getElementById("nombre").value;
+        let apellido = document.getElementById("apellido").value;
+        let fecha = document.getElementById("fecha").value;
+        let hora = document.getElementById("hora").value;
+  
+        // Verificar la fecha actual
+        let fechaActual = new Date();
+        let fechaSeleccionada = new Date(fecha);
+  
+        // Comparar las fechas
+        if (fechaSeleccionada.toDateString() !== fechaActual.toDateString()) {
+          alert("La fecha seleccionada no es válida. Por favor, elige la fecha actual.");
+          return;
+        }
+  
+        // Bloquear la hora seleccionada
+        let horaId = "hora_" + hora.replace(":", "_");
+        let horaElement = document.getElementById(horaId);
+  
+        // Verificar si la hora ya está tomada
+        if (horaElement.classList.contains("taken")) {
+          alert("La hora seleccionada ya está tomada. Por favor, elige otra hora.");
+          return;
+        }
+  
+        // Registrar la consulta
+        horaElement.classList.add("taken");
+        horaElement.textContent = "Tomada por " + nombre + " " + apellido;
+  
+        // Restablecer los campos del formulario
+        document.getElementById("nombre").value = "";
+        document.getElementById("apellido").value = "";
+        document.getElementById("fecha").value = "";
+        document.getElementById("hora").value = "";
+      }
+    </script>
+  </body>
+  </html>
+  
+  
